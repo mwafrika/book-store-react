@@ -2,7 +2,7 @@ const ADD_CATEGORY = 'ADD_CATEGORY';
 const REMOVE_CATEGORY = 'REMOVE_CATEGORY';
 const CHECK_STATUS = 'CHECK_STATUS';
 
-const reducer = (categories = [], action) => {
+export default function reducer(categories = [], action) {
   switch (action.type) {
     case ADD_CATEGORY:
       return [...categories, action.book];
@@ -13,10 +13,16 @@ const reducer = (categories = [], action) => {
     default:
       return categories;
   }
-};
+}
 
-export default reducer;
+export function addCategory(category) {
+  return { ADD_CATEGORY, category };
+}
 
-export const addCategory = (category) => ({ type: ADD_CATEGORY, category });
-export const removeCategory = (id) => ({ type: REMOVE_CATEGORY, id });
-export const checkStatus = () => ({ type: CHECK_STATUS });
+export function removeCategory(id) {
+  return { type: REMOVE_CATEGORY, id };
+}
+
+export function checkStatus() {
+  return { type: CHECK_STATUS };
+}
