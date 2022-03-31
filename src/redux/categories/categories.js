@@ -9,7 +9,6 @@ export default function reducer(categories = [], action) {
     case REMOVE_CATEGORY:
       return [...categories].filter((book) => book.id !== action.id);
     case CHECK_STATUS:
-      console.log('ddddd');
       return 'Under Construction';
     default:
       return categories;

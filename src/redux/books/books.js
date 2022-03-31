@@ -5,7 +5,6 @@ const FETCH_ALL_BOOK = 'FETCH_ALL_BOOK';
 export const reducer = (book = [], action) => {
   switch (action.type) {
     case ADD_BOOK:
-      console.log(book);
       return [...book, action.book];
     case REMOVE_BOOK:
       return [...book].filter((book) => book.id !== action.id);
