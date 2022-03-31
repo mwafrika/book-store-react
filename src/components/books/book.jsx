@@ -35,7 +35,7 @@ const book = () => {
               <li className='text-sm text-sky-500 w-20 cursor-pointer border-r-gray-100 border-r-2'>
                 <button
                   className='cursor-pointer'
-                  onClick={(e) => handleClick(book.id, e)}
+                  onClick={(e) => handleClick(book.item_id, e)}
                   type='submit'
                 >
                   Remove
@@ -47,10 +47,7 @@ const book = () => {
           <section className='flex gap-x-4 border-r-2 border-r-gray-100 w-1/3 py-3'>
             <div className='circle' />
             <div>
-              <p className='text-3xl'>
-                {book.completed}
-                $
-              </p>
+              <p className='text-3xl'>64 $</p>
               <p className='text-gray-400'>Completed</p>
             </div>
           </section>

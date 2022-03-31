@@ -9,5 +9,6 @@ const url = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstor
 console.log(`${url}apps/Hv9c4qLdQDZsZVD5KU1I/books`, 'my url');
 
 export const fetchAll = () => axios.get(url);
+export const addBook = (book) => axios.post(url, book);
 
 // https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/Hv9c4qLdQDZsZVD5KU1I/books

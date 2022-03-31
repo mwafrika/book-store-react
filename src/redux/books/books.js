@@ -21,18 +21,21 @@ export const reducer = (book = [], action) => {
 
 export default reducer;
 
-export const createBook = (book) => ({
-  type: ADD_BOOK,
-  book,
-});
-
+export const createBook = (book) => async (dispatch) => {
+  try {
+    const { data } = await Api.addBook(book);
+    console.log(data, 'ADD BOOK');
+    dispatch({ type: ADD_BOOK, book: data });
+  } catch (error) {
+    console.log(error.message, 'error');
+  }
+};
 export const removeBook = (id) => ({ type: REMOVE_BOOK, id });
 
 export const getAllBooks = () => async (dispatch) => {
   try {
     const { data } = await Api.fetchAll();
     const payload = Object.values(data).flat();
-    console.log(payload, 'book STrooore');
     dispatch({
       type: FETCH_ALL_BOOK,
       payload,
