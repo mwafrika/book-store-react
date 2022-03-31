@@ -7,7 +7,6 @@ import { removeBook } from '../../redux/books/books';
 const book = () => {
   const post = useSelector((state) => state.bookReducer);
   const dispatch = useDispatch();
-  console.log(post);
   const handleClick = (id, e) => {
     e.preventDefault();
     dispatch(removeBook(id));
@@ -44,10 +43,7 @@ const book = () => {
           <section className='flex gap-x-4 border-r-2 border-r-gray-100 w-1/3 py-3'>
             <div className='circle' />
             <div>
-              <p className='text-3xl'>
-                {book.completed}
-                $
-              </p>
+              <p className='text-3xl'>{book.completed}$</p>
               <p className='text-gray-400'>Completed</p>
             </div>
           </section>
