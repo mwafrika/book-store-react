@@ -15,8 +15,8 @@ const index = () => {
       <Header />
       <div className='flex justify-start items-center ml-5 gap-x-4'>
         <button
-          type='button'
-          className='bg-slate-400'
+          type='submit'
+          className='px-10 py-2 rounded-md text-white bg-sky-500'
           onClick={() => handleClick()}
         >
           Check status

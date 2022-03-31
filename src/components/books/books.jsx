@@ -5,10 +5,12 @@ import Book from './book';
 import Header from '../header';
 
 const books = () => (
-  <div className='main'>
-    <Header />
-    <Book />
-    <Form />
+  <div className='main-container'>
+    <div className='container'>
+      <Header />
+      <Book />
+      <Form />
+    </div>
   </div>
 );
 

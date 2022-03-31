@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 /* eslint-disable jsx-quotes */
 const header = () => (
   <header className='h-20 flex justify-between bg-slate-500 text-slate-500 px-5 items-center header'>
-    <nav className='w-1/4'>
-      <ul className='flex justify-between'>
-        <li>
+    <nav className='w-1/3'>
+      <ul className='flex justify-between items-center gap-x-2'>
+        <li className='text-xl text-sky-500'>
           <NavLink to='/'>BookStore CMS</NavLink>
         </li>
         <li>
