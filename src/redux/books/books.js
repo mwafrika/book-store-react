@@ -1,9 +1,13 @@
+import * as Api from '../../Api';
+
 const ADD_BOOK = 'ADD_BOOK';
 const REMOVE_BOOK = 'REMOVE_BOOK';
 const FETCH_ALL_BOOK = 'FETCH_ALL_BOOK';
 
 export const reducer = (book = [], action) => {
   switch (action.type) {
+    case FETCH_ALL_BOOK:
+      return action.payload;
     case ADD_BOOK:
       return [...book, action.book];
     case REMOVE_BOOK:
@@ -22,4 +26,14 @@ export const createBook = (book) => ({
 
 export const removeBook = (id) => ({ type: REMOVE_BOOK, id });
 
-export const getAllBooks = () => ({ type: FETCH_ALL_BOOK });
+export const getAllBooks = () => async (dispatch) => {
+  try {
+    const { data } = await Api.fetchAll();
+    dispatch({
+      type: FETCH_ALL_BOOK,
+      payload: data,
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+};
