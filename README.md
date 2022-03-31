@@ -11,7 +11,7 @@
 
 ## Live Demo
 
-[Live Demo](https://)
+[Live Demo](https://book-store-mwa.netlify.app/)
 
 ## Getting Started
 
