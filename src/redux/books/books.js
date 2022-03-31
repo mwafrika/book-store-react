@@ -1,4 +1,5 @@
-import * as Api from '../../Api';
+/* eslint-disable import/extensions */
+import * as Api from '../../api/index';
 
 const ADD_BOOK = 'ADD_BOOK';
 const REMOVE_BOOK = 'REMOVE_BOOK';
@@ -7,6 +8,7 @@ const FETCH_ALL_BOOK = 'FETCH_ALL_BOOK';
 export const reducer = (book = [], action) => {
   switch (action.type) {
     case FETCH_ALL_BOOK:
+      console.log(action.payload, 'Try reducer');
       return action.payload;
     case ADD_BOOK:
       return [...book, action.book];
@@ -29,9 +31,11 @@ export const removeBook = (id) => ({ type: REMOVE_BOOK, id });
 export const getAllBooks = () => async (dispatch) => {
   try {
     const { data } = await Api.fetchAll();
+    const payload = Object.values(data).flat();
+    console.log(payload, 'book STrooore');
     dispatch({
       type: FETCH_ALL_BOOK,
-      payload: data,
+      payload,
     });
   } catch (err) {
     console.log(err.message);
