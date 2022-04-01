@@ -4,33 +4,34 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { createBook } from '../../redux/books/books';
 
-const book = () => {
+const books = () => {
   const [book, setBook] = useState({
-    bookName: '',
+    completed: 64,
+    chapter: 20,
+    chapterTitle: '',
+    item_id: uuidv4(),
+    title: '',
+    author: '',
     category: '',
-    bookAuthor: '',
   });
-  const { bookAuthor, bookName, category } = book;
+  const { author, title, category } = book;
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const newBook = {
-      id: uuidv4(),
-      bookName,
-      category,
-      bookAuthor,
       completed: 64,
       chapter: 20,
       chapterTitle: 'Harry porter',
+      item_id: uuidv4(),
+      title,
+      author,
+      category,
     };
+
     dispatch(createBook(newBook));
-    setBook({
-      bookName: '',
-      category: '',
-      bookAuthor: '',
-    });
+    setBook(newBook);
   };
   const handleChange = (e) => {
     setBook({
@@ -46,14 +47,14 @@ const book = () => {
         placeholder='Book title'
         required
         className='border-2 w-1/4 py-2 px-2 rounded-sm'
-        name='bookName'
-        value={bookName}
+        name='title'
+        value={title}
         onChange={handleChange}
       />
       <input
         type='text'
-        name='bookAuthor'
-        value={bookAuthor}
+        name='author'
+        value={author}
         placeholder='Book author'
         onChange={handleChange}
         required
@@ -63,7 +64,7 @@ const book = () => {
         name='category'
         id='category'
         className='border-2 w-1/4 py-2 px-2 rounded-sm'
-        placeholder='Book title'
+        placeholder='Category'
         value={category}
         onChange={handleChange}
         required
@@ -77,4 +78,4 @@ const book = () => {
   );
 };
 
-export default book;
+export default books;
