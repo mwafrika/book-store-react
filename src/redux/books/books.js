@@ -10,12 +10,10 @@ const FETCH_ALL_BOOK = 'FETCH_ALL_BOOK';
 export const reducer = (book = [], action) => {
   switch (action.type) {
     case FETCH_ALL_BOOK:
-      console.log(action.payload, 'Try reducer');
       return action.payload;
     case ADD_BOOK:
       return [...book, action.book];
     case REMOVE_BOOK:
-      console.log(book, 'DELETE REDUCER');
       return [...book].filter((book) => book.item_id !== action.id);
     default:
       return book;
@@ -25,20 +23,12 @@ export const reducer = (book = [], action) => {
 export default reducer;
 
 export const createBook = (book) => async (dispatch) => {
-  try {
-    await Api.addBook(book);
-    dispatch({ type: ADD_BOOK, book });
-  } catch (error) {
-    console.log(error.message, 'error');
-  }
+  await Api.addBook(book);
+  dispatch({ type: ADD_BOOK, book });
 };
 export const removeBook = (id) => async (dispatch) => {
-  try {
-    await Api.deleteBook(id);
-    dispatch({ type: REMOVE_BOOK, id });
-  } catch (error) {
-    console.log(error, 'error');
-  }
+  await Api.deleteBook(id);
+  dispatch({ type: REMOVE_BOOK, id });
 };
 
 const reformulateData = (data) => {
@@ -47,16 +37,11 @@ const reformulateData = (data) => {
 };
 
 export const getAllBooks = () => async (dispatch) => {
-  try {
-    const { data } = await Api.fetchAll();
-    const bookAvailable = reformulateData(data);
-    console.log(reformulateData(data), 'formulate data');
+  const { data } = await Api.fetchAll();
+  const bookAvailable = reformulateData(data);
 
-    dispatch({
-      type: FETCH_ALL_BOOK,
-      payload: bookAvailable,
-    });
-  } catch (err) {
-    console.log(err.message);
-  }
+  dispatch({
+    type: FETCH_ALL_BOOK,
+    payload: bookAvailable,
+  });
 };
