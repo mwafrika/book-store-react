@@ -14,7 +14,8 @@ const book = () => {
 
   useEffect(() => {
     dispatch(getAllBooks());
-  }, [dispatch]);
+  }, []);
+
   return (
     <>
       {post.map((book, index) => (
@@ -36,7 +37,7 @@ const book = () => {
                 <button
                   className='cursor-pointer'
                   onClick={(e) => handleClick(book.item_id, e)}
-                  type='submit'
+                  type='button'
                 >
                   {console.log(book.item_id, 'check my ID')}
                   Remove

@@ -10,6 +10,7 @@ const rootReducer = combineReducers({ bookReducer, categoryReducer });
 
 const store = createStore(
   rootReducer,
+  { bookReducer: [], categoryReducer: [] },
   compose(
     applyMiddleware(thunk),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),

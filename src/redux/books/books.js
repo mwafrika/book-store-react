@@ -16,8 +16,7 @@ export const reducer = (book = [], action) => {
       return [...book, action.book];
     case REMOVE_BOOK:
       console.log(book, 'DELETE REDUCER');
-      return book.filter((book) => book.item_id !== action.id);
-    // return [...book].filter((book) => book.id !== action.id);
+      return [...book].filter((book) => book.item_id !== action.id);
     default:
       return book;
   }
@@ -27,9 +26,8 @@ export default reducer;
 
 export const createBook = (book) => async (dispatch) => {
   try {
-    const { data } = await Api.addBook(book);
-    console.log(data, 'ADD BOOK');
-    dispatch({ type: ADD_BOOK, book: data });
+    await Api.addBook(book);
+    dispatch({ type: ADD_BOOK, book });
   } catch (error) {
     console.log(error.message, 'error');
   }
@@ -43,36 +41,20 @@ export const removeBook = (id) => async (dispatch) => {
   }
 };
 
+const reformulateData = (data) => {
+  const books = Object.entries(data);
+  return books.map((element) => ({ item_id: element[0], ...element[1][0] }));
+};
+
 export const getAllBooks = () => async (dispatch) => {
   try {
     const { data } = await Api.fetchAll();
-    // const Keys = Object.entries(data).map((book) => Object.values(book)[0]);
-    // const Values = Object.values(data).flat().forEach((book) => book);
-    // const combinedValues = [Object.values(data)];
-
-    // const mapValues = [...Values, { item_id: Keys }];
-
-    const payload = Object.values(data).flat();
-    const [keys] = Object.keys(data).map((key) => key);
-    const mapValues = payload.map((book) => ({ ...book, item_id: keys })); // combine keys and values using entries
-    
-
-    Object.entries(data).map(([item_id, mapValues]) => ({
-      item_id,
-      ...mapValues,
-    }));
-
-    console.log(mapValues, 'keys and values');
-
-    const checkPayload = payload.flat().map((book) => ({
-      ...book,
-      item_id: keys[0],
-    }));
-    console.log(checkPayload[1], 'checkPayload');
+    const bookAvailable = reformulateData(data);
+    console.log(reformulateData(data), 'formulate data');
 
     dispatch({
       type: FETCH_ALL_BOOK,
-      payload: mapValues,
+      payload: bookAvailable,
     });
   } catch (err) {
     console.log(err.message);

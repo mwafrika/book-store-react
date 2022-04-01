@@ -6,9 +6,13 @@ import { createBook } from '../../redux/books/books';
 
 const books = () => {
   const [book, setBook] = useState({
+    completed: 64,
+    chapter: 20,
+    chapterTitle: '',
+    item_id: uuidv4(),
     title: '',
-    category: '',
     author: '',
+    category: '',
   });
   const { author, title, category } = book;
   const dispatch = useDispatch();
@@ -26,14 +30,8 @@ const books = () => {
       category,
     };
 
-    if (newBook) {
-      dispatch(createBook(newBook));
-      setBook({
-        title: '',
-        author: '',
-        category: '',
-      });
-    }
+    dispatch(createBook(newBook));
+    setBook(newBook);
   };
   const handleChange = (e) => {
     setBook({
