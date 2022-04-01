@@ -17,7 +17,6 @@ const books = () => {
     e.preventDefault();
 
     const newBook = {
-      ...book,
       completed: 64,
       chapter: 20,
       chapterTitle: 'Harry porter',

@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable camelcase */
 /* eslint-disable import/extensions */
 import * as Api from '../../api/index';
 
@@ -13,7 +15,9 @@ export const reducer = (book = [], action) => {
     case ADD_BOOK:
       return [...book, action.book];
     case REMOVE_BOOK:
-      return [...book].filter((book) => book.id !== action.id);
+      console.log(book, 'DELETE REDUCER');
+      return book.filter((book) => book.item_id !== action.id);
+    // return [...book].filter((book) => book.id !== action.id);
     default:
       return book;
   }
@@ -30,15 +34,45 @@ export const createBook = (book) => async (dispatch) => {
     console.log(error.message, 'error');
   }
 };
-export const removeBook = (id) => ({ type: REMOVE_BOOK, id });
+export const removeBook = (id) => async (dispatch) => {
+  try {
+    await Api.deleteBook(id);
+    dispatch({ type: REMOVE_BOOK, id });
+  } catch (error) {
+    console.log(error, 'error');
+  }
+};
 
 export const getAllBooks = () => async (dispatch) => {
   try {
     const { data } = await Api.fetchAll();
+    // const Keys = Object.entries(data).map((book) => Object.values(book)[0]);
+    // const Values = Object.values(data).flat().forEach((book) => book);
+    // const combinedValues = [Object.values(data)];
+
+    // const mapValues = [...Values, { item_id: Keys }];
+
     const payload = Object.values(data).flat();
+    const [keys] = Object.keys(data).map((key) => key);
+    const mapValues = payload.map((book) => ({ ...book, item_id: keys })); // combine keys and values using entries
+    
+
+    Object.entries(data).map(([item_id, mapValues]) => ({
+      item_id,
+      ...mapValues,
+    }));
+
+    console.log(mapValues, 'keys and values');
+
+    const checkPayload = payload.flat().map((book) => ({
+      ...book,
+      item_id: keys[0],
+    }));
+    console.log(checkPayload[1], 'checkPayload');
+
     dispatch({
       type: FETCH_ALL_BOOK,
-      payload,
+      payload: mapValues,
     });
   } catch (err) {
     console.log(err.message);

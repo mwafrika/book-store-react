@@ -38,6 +38,7 @@ const book = () => {
                   onClick={(e) => handleClick(book.item_id, e)}
                   type='submit'
                 >
+                  {console.log(book.item_id, 'check my ID')}
                   Remove
                 </button>
               </li>
